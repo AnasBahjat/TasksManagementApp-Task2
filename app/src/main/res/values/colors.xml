@@ -4,4 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#F40404</color>
     <color name="green">#0104E1</color>
+    <color name="blue">#0104E1</color>
+    <color name="grey">#7393B3</color>
+    <color name="button_pressed">#7393B3</color>
+    <color name="button_focused">#7393B3</color>
+    <color name="button_normal">#D5D6D6</color>
+    <color name="light_blue">#B1D4E0</color>
+    <color name="text_light_blue">#2E8BC0</color>
 </resources>

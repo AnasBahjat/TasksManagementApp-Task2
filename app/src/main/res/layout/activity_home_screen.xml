@@ -45,7 +45,7 @@
         android:id="@+id/tasksRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/floatingActionButton2"
+        android:layout_above="@+id/addNewTaskBtn"
         android:layout_below="@+id/categoriesRecyclerView"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
@@ -56,7 +56,7 @@
         android:scrollbars="vertical" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/addNewTaskBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -66,7 +66,6 @@
         android:clickable="true"
         android:contentDescription="@string/add_new_task"
         app:backgroundTint="#42A4EB"
-        app:cornerRadius="15dp"
+        app:cornerRadius="40dp"
         app:icon="@drawable/add_task_icon" />
-
 </RelativeLayout>

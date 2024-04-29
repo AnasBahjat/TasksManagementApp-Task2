@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/mainLayoutColorPicker"
+    android:backgroundTint="#F3EFEF"
+    android:background="@drawable/rounded_corners">
+
+    <ImageView
+        android:id="@+id/closeChooseColorPopupWindow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="-15dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:srcCompat="@drawable/close_icon2"
+        android:contentDescription="@string/exit_popup_window" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:text="@string/choose_color_text"
+        android:textColor="#43A3EA"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="10dp"/>
+
+    <com.skydoves.colorpickerview.ColorPickerView
+        android:id="@+id/colorPickerView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="10dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.skydoves.colorpickerview.sliders.AlphaSlideBar
+            android:id="@+id/alphaSlideBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/rounded_corners"
+            android:layout_marginEnd="5dp"
+            app:selector_AlphaSlideBar="@drawable/colorpickerview_wheel"
+            app:borderColor_AlphaSlideBar="@android:color/darker_gray"
+            app:borderSize_AlphaSlideBar="5"/>
+
+        <com.skydoves.colorpickerview.sliders.BrightnessSlideBar
+            android:id="@+id/brightnessSlide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_corners"
+            app:selector_BrightnessSlider="@drawable/colorpickerview_wheel"
+            app:borderColor_BrightnessSlider="@android:color/darker_gray"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:borderSize_BrightnessSlider="5"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/layout_borders"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/colorPickerSelectedColorPreView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:gravity="center_horizontal|center_vertical"/>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/chooseColorBtn"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="#3FCDE8"
+        android:text="@string/choose_Text"
+        android:textAllCaps="false" />
+
+</LinearLayout>

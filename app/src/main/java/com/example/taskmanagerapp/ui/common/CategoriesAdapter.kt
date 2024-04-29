@@ -31,8 +31,8 @@ class CategoriesAdapter(private val categories : List<Category>,private val cont
     }
     inner class MyViewHolder(private val binding : CategoryCardViewBinding) :RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category){
-            val tasksCount : Int = category.tasksCount
-            binding.tasksCount.text = context.getString(R.string.tasks_count,tasksCount.toString())
+            //val tasksCount : Int = category.tasksCount
+            //binding.tasksCount.text = context.getString(R.string.tasks_count,tasksCount.toString())
             binding.categoryName.text=category.categoryName
             Log.d("","cat name ----> ${category.categoryName}")
             Log.d("Cat color -----> ${category.categoryColor}","Cat color -----> ${category.categoryColor}")

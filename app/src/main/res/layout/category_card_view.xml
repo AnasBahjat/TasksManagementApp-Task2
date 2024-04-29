@@ -28,11 +28,10 @@
 
     <Button
         android:id="@+id/categoryColor"
-        android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_width="80dp"
+        android:layout_height="13dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="130dp"
-        android:background="@drawable/rectangle" />
+        android:layout_marginTop="110dp"/>
 
 
 </com.google.android.material.card.MaterialCardView>

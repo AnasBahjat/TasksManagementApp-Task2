@@ -126,6 +126,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/curvey_button"
             android:backgroundTint="#43A3EA"
+            android:onClick="addCategoryButtonClicked"
             android:text="@string/add_category"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"

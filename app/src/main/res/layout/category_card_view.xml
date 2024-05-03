@@ -26,12 +26,15 @@
         android:textColor="#7A7272"
         android:textSize="22sp" />
 
-    <Button
+    <LinearLayout
         android:id="@+id/categoryColor"
         android:layout_width="80dp"
-        android:layout_height="13dp"
+        android:layout_height="8dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="110dp"/>
+        android:layout_marginTop="110dp"
+        android:background="@drawable/category_button_color_preview"
+        android:backgroundTint="#3D067C"
+        android:orientation="horizontal" />
 
 
 </com.google.android.material.card.MaterialCardView>

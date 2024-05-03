@@ -13,10 +13,10 @@ interface DatabaseDao {
     suspend fun insertNewCategory(category : Category)
 
     @Query("SELECT * from Category")
-    fun getCurrentCategories() : LiveData<List<Category>>
+     fun getCurrentCategories() : LiveData<List<Category>>
 
-    @Query("DELETE FROM Category where categoryId = :id")
-    suspend fun deleteCategory(id : Int)
+    @Query("DELETE FROM Category where categoryName = :categoryName")
+    suspend fun deleteCategory(categoryName : String)
 
     @Insert
     suspend fun insertNewTask(task : Task)
@@ -25,5 +25,11 @@ interface DatabaseDao {
     suspend fun deleteTask(id : Int)
 
     @Query("SELECT * FROM Task")
-    fun getCurrentTasks() : LiveData<List<Task>>
+     fun getCurrentTasks() : LiveData<List<Task>>
+
+    @Query("SELECT count(*) from Task where categoryName = :categoryName")
+    suspend fun getTasksCount(categoryName: String) : Int
+
+    @Query("SELECT count(*) from Category where categoryName = :categoryName")
+    fun checkIfCategoryExist(categoryName : String) : Int
 }

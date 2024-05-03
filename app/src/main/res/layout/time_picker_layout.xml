@@ -34,7 +34,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="#43A3EA"
-        android:text="Ok"
+        android:text="@string/ok_text"
         android:textColor="@color/white" />
 
 </LinearLayout>

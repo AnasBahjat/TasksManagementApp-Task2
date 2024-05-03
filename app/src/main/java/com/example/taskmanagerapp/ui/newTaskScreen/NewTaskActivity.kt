@@ -1,9 +1,11 @@
 package com.example.taskmanagerapp.ui.newTaskScreen
 
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.GridLayout
@@ -13,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.taskmanagerapp.DatabaseViewModel
 import com.example.taskmanagerapp.R
@@ -21,6 +24,7 @@ import com.example.taskmanagerapp.databinding.ColorPickerLayoutBinding
 import com.example.taskmanagerapp.databinding.PopupNewCategoryWindowLayoutBinding
 import com.example.taskmanagerapp.databinding.TimePickerLayoutBinding
 import com.example.taskmanagerapp.models.Category
+import com.example.taskmanagerapp.models.Task
 import com.example.taskmanagerapp.ui.utils.Constants
 import com.example.taskmanagerapp.ui.utils.CustomDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -46,8 +50,11 @@ class NewTaskActivity : AppCompatActivity() {
     private var rowCount : Int = 1
     private var columnCount : Int = 1
     private var priority = ""
-
+    private var addTaskFlag = 0;
     private var savedTime = ""
+    private var selectedHour = 0
+    private var amPm = ""
+    private lateinit var categoriesGridLayout : GridLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -65,6 +72,7 @@ class NewTaskActivity : AppCompatActivity() {
 
     private fun init() {
         initViewModel()
+        setSavedCategories()
         binding.addNewCategoryBtn.setOnClickListener{
             showNewCategoryPopupWindow()
         }
@@ -85,32 +93,95 @@ class NewTaskActivity : AppCompatActivity() {
         setMidPriorityButton()
         setHighPriorityButton()
         checkCategoryNameText()
-        addCategoryButtonClicked()
     }
+
+    private fun setSavedCategories() {
+        viewModel.getAllCategories().observe(this,Observer{categories ->
+            removeExistViews()
+            for(i in categories.indices){
+                val button = Button(this)
+                button.isAllCaps = false
+                setCurvyButton(button)
+                button.text = categories[i].categoryName
+                setCurvyButton(button)
+                binding.gridLayout.addView(button)
+            }
+        })
+    }
+
+    private fun removeExistViews(){
+        for(i in binding.gridLayout.childCount - 1  downTo 1){
+            binding.gridLayout.removeView(binding.gridLayout.getChildAt(i))
+        }
+    }
+
+
+    fun addCategoryButtonClicked(view: View) {
+        if(popupNewCategoryWindowBinding.categoryNamePopup.editText?.text.toString().isEmpty()){
+            popupNewCategoryWindowBinding.categoryNamePopup.editText?.error = "*Please Set the category name "
+        }
+        else {
+            newCategoryName = popupNewCategoryWindowBinding.categoryNamePopup.editText?.text.toString()
+            viewModel.insertCategory(Category(0,newCategoryName,newCategoryColor))
+            addNewCategoryButtonToGridLayout()
+            popUpWindowNewCategory.dismiss()
+        }
+    }
+
+    fun addNewTaskButtonClicked(view: View) {
+        binding.taskInformation.editText?.doOnTextChanged { text, start, before, count ->
+            binding.taskInformation.error = null
+        }
+
+        if(binding.taskInformation.editText?.text?.isEmpty() == true){
+            binding.taskInformation.error = "Fill In This Field"
+            addTaskFlag = 0
+        }
+
+        else if(priority.isEmpty()){
+            showMessageDialog(this.getString(R.string.error_priority_title),this.getString(R.string.error_priority_msg),R.drawable.error_icon_2)
+            addTaskFlag = 0
+        }
+
+        else if(savedTime.isEmpty()){
+            showMessageDialog(this.getString(R.string.error_time_title),this.getString(R.string.error_time_message),R.drawable.error_icon_2)
+            addTaskFlag = 0
+            binding.datePickerBtn.background=ContextCompat.getDrawable(this,R.drawable.red_curvey_layout)
+        }
+
+
+        if(binding.taskInformation.editText?.text?.isEmpty() == false && priority.isNotEmpty() && savedTime.isNotEmpty()){
+            addTaskFlag = 1
+        }
+        if(addTaskFlag == 1) {
+            viewModel.insertTask(
+                Task(
+                    0,
+                    binding.taskInformation.editText?.text.toString(),
+                    savedTime,
+                    binding.completedCheckBox.isChecked,
+                    newCategoryColor,
+                    priority,
+                    newCategoryName
+                )
+            )
+
+            showMessageDialog(
+                this.getString(R.string.done_adding_task_title),
+                this.getString(R.string.done_adding_task_message),
+                R.drawable.true_icon
+            )
+        }
+    }
+
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(this)[DatabaseViewModel::class.java]
     }
 
-    private fun addCategoryButtonClicked() {
-        popupNewCategoryWindowBinding.addCategoryBtn.setOnClickListener {
-            if(popupNewCategoryWindowBinding.categoryNamePopup.editText?.text.toString().isEmpty()){
-                popupNewCategoryWindowBinding.categoryNamePopup.editText?.error = "*Please Set the category name "
-            }
-            else {
-                newCategoryName = popupNewCategoryWindowBinding.categoryNamePopup.editText?.text.toString()
-                Log.d("------> $newCategoryName  $newCategoryColor","----------> $newCategoryName  $newCategoryColor")
-                popUpWindowNewCategory.dismiss()
-                addNewCategoryButtonToGridLayout()
-                val category = Category(0,newCategoryName,binding.completedCheckBox.isChecked,priority,newCategoryColor)
-                viewModel.insertCategory(category)
-                Toast.makeText(this,"New Category added ..",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
     private fun checkCategoryNameText() {
-        popupNewCategoryWindowBinding.categoryNamePopup.editText?.doOnTextChanged { text, start, before, count ->
+        popupNewCategoryWindowBinding.categoryNamePopup.editText?.doOnTextChanged { _, _, _, _ ->
             popupNewCategoryWindowBinding.categoryNamePopup.editText?.error = null
         }
     }
@@ -218,9 +289,10 @@ class NewTaskActivity : AppCompatActivity() {
                 }
                 else if(checkIfDateIsValid(year,monthOfYear,day) == 0){
                     showTimePicker(0)
+                    binding.datePickerBtn.background=ContextCompat.getDrawable(this,R.drawable.black_curvey_layout)
                 }
                 else {
-                    showErrorDialog(this.getString(R.string.error_date_title),this.getString(R.string.error_date_message))
+                    showMessageDialog(this.getString(R.string.error_date_title),this.getString(R.string.error_date_message),R.drawable.error_icon_2)
                     binding.datePickerBtn.background=ContextCompat.getDrawable(this,R.drawable.red_curvey_layout)
                 }
             },
@@ -264,6 +336,7 @@ class NewTaskActivity : AppCompatActivity() {
     }
 
     private fun showTimePicker(flag : Int) {
+
         val width = WindowManager.LayoutParams.WRAP_CONTENT
         val height = WindowManager.LayoutParams.WRAP_CONTENT
         val popupWindowTimePicker = PopupWindow(popupWindowTimePickerBinding.root,width,height,true)
@@ -271,19 +344,41 @@ class NewTaskActivity : AppCompatActivity() {
         popupWindowTimePicker.showAtLocation(popupWindowTimePickerBinding.mainLayoutTimePicker,Gravity.CENTER,0,0)
         val currentTime = Calendar.getInstance()
 
+        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = currentTime.get(Calendar.MINUTE)
+
+        when {
+            currentHour == 0 -> {
+                selectedHour += 12
+                amPm = "AM"
+            }
+            currentHour == 12 -> amPm = "PM"
+            currentHour  > 12 -> {
+                selectedHour -= 12
+                amPm= "PM"
+            }
+            else -> amPm = "AM"
+        }
+
+        val currentHourStr = if(currentHour < 10) "0$currentHour" else currentHour
+        val currentMinuteStr = if(currentMinute < 10) "0$currentMinute" else currentMinute
+        savedTime = "$currentHourStr:$currentMinuteStr $amPm"
+        popupWindowTimePickerBinding.timeText.text = savedTime
+
         popupWindowTimePickerBinding.timePicker.setOnTimeChangedListener{_,hours : Int, minutes : Int ->
             val selectedTime = Calendar.getInstance()
             selectedTime.set(Calendar.HOUR_OF_DAY,hours)
             selectedTime.set(Calendar.MINUTE,minutes)
 
+
             if(flag==0){
                 if(selectedTime.timeInMillis < currentTime.timeInMillis){
-                    showErrorDialog(getString(R.string.error_time_title),getString(R.string.error_time_message))
+                    showMessageDialog(getString(R.string.error_time_title),getString(R.string.error_time_message),R.drawable.error_icon_2)
                 }
             }
             else {
-                var selectedHour = hours
-                var amPm = ""
+                selectedHour = hours
+                amPm = ""
 
                 when {hours == 0 -> { selectedHour += 12
                     amPm = "AM"
@@ -294,6 +389,7 @@ class NewTaskActivity : AppCompatActivity() {
                     }
                     else -> amPm = "AM"
                 }
+
                 val hrs = if (hours < 10) "0$hours" else hours
                 val min = if (minutes < 10) "0$minutes" else minutes
                 val msg = "Time is: $hrs : $min $amPm"
@@ -308,22 +404,28 @@ class NewTaskActivity : AppCompatActivity() {
         }
     }
 
-    private fun showErrorDialog(title : String,message : String){
+
+
+    private fun showMessageDialog(title : String, message : String, iconId : Int){
         MaterialAlertDialogBuilder(this)
             .setTitle(title)
             .setMessage(message)
-            .setIcon(ContextCompat.getDrawable(this,R.drawable.error_icon_2))
+            .setIcon(ContextCompat.getDrawable(this,iconId))
             .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
 
+
+
    private fun addNewCategoryButtonToGridLayout(){
        val button = Button(this).apply {
            text = newCategoryName
            isAllCaps=false
        }
+       setCurvyButton(button)
+       button.gravity=Gravity.CENTER
        if(rowCount == 1){
            val layoutParams = GridLayout.LayoutParams(
                GridLayout.spec(rowCount, GridLayout.FILL, 1f),
@@ -350,4 +452,20 @@ class NewTaskActivity : AppCompatActivity() {
            columnCount++
        }
    }
+
+    private fun setCurvyButton(button: Button){
+        val drawable = GradientDrawable()
+        drawable.cornerRadius=50f
+        drawable.setColor(ContextCompat.getColor(this,R.color.button_normal))
+        button.background=drawable
+    }
+    private fun setCategoriesGravity(){
+        for(i in binding.gridLayout.childCount - 1 downTo 1){
+            val child = binding.gridLayout.getChildAt(i)
+            val childParams = child.layoutParams as GridLayout.LayoutParams
+            childParams.width = GridLayout.LayoutParams.WRAP_CONTENT
+            childParams.height = GridLayout.LayoutParams.WRAP_CONTENT
+            child.layoutParams = childParams
+        }
+    }
 }

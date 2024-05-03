@@ -29,9 +29,9 @@ class TasksAdapter(private val tasksList : List<Task>,private val context : Cont
             binding.taskName.text = task.taskName
             binding.taskDue.text=context.getString(R.string.dueString,task.taskDue)
             when(task.priority){
-                1 -> binding.taskPriorityButton.text=context.getString(R.string.high)
-                2 -> binding.taskPriorityButton.text=context.getString(R.string.medium)
-                3 -> binding.taskPriorityButton.text=context.getString(R.string.low)
+                "Low" -> binding.taskPriorityButton.text=context.getString(R.string.high)
+                "Medium"-> binding.taskPriorityButton.text=context.getString(R.string.medium)
+                "High" -> binding.taskPriorityButton.text=context.getString(R.string.low)
             }
         }
     }

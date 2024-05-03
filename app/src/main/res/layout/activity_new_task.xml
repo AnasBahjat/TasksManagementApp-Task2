@@ -34,7 +34,7 @@
         android:text="@string/create_task_text"
         android:textSize="35sp" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/taskInformation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,14 +42,23 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="205dp"
-        android:layout_marginEnd="159dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:hint="@string/task_information_input"
-        android:inputType="text"
-        android:textSize="20sp"
-        android:autofillHints="No Title" />
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="129dp"
+        app:errorEnabled="true"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:errorIconDrawable="@drawable/small_error_icon"
+        android:hint="@string/task_information_input">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:maxLength="20"
+            android:textSize="20sp"
+            android:autofillHints="ss"
+            tools:ignore="LabelFor"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/datePickerBtn"
@@ -219,14 +228,16 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="342dp"
-        android:layout_height="158dp"
+        android:layout_width="wrap_content"
+        android:layout_height="326dp"
+        android:layout_above="@+id/saveTaskBtn"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="38dp"
         android:layout_marginTop="547dp"
-        android:layout_marginEnd="31dp">
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="14dp">
 
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/gridLayout"
@@ -271,7 +282,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/saveTaskBtn"
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_alignParentEnd="true"
@@ -281,7 +292,11 @@
         android:background="@drawable/ovel_button"
         android:clickable="true"
         android:contentDescription="@string/add_task"
+        android:onClick="addNewTaskButtonClicked"
+        android:text="Add Task"
+        android:textAllCaps="false"
         android:textColorLink="#D82525"
+        android:textSize="16sp"
         app:srcCompat="@drawable/add_task_icon" />
 
 

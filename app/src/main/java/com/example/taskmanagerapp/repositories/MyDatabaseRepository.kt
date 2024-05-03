@@ -6,11 +6,11 @@ import com.example.taskmanagerapp.models.Category
 import com.example.taskmanagerapp.models.Task
 
 class MyDatabaseRepository(private val databaseDao : DatabaseDao) {
-    fun getSavedCategories() : LiveData<List<Category>>{
+     fun getSavedCategories() : LiveData<List<Category>>{
         return databaseDao.getCurrentCategories()
     }
 
-    fun getSavedTasks() : LiveData<List<Task>>{
+     fun getSavedTasks() : LiveData<List<Task>>{
         return databaseDao.getCurrentTasks()
     }
 
@@ -18,8 +18,8 @@ class MyDatabaseRepository(private val databaseDao : DatabaseDao) {
         databaseDao.deleteTask(taskId)
     }
 
-    suspend fun deleteCategory(categoryID : Int){
-        databaseDao.deleteCategory(categoryID)
+    suspend fun deleteCategory(categoryName: String){
+        databaseDao.deleteCategory(categoryName)
     }
 
     suspend fun insertNewCategory(category: Category) {
@@ -28,5 +28,13 @@ class MyDatabaseRepository(private val databaseDao : DatabaseDao) {
 
     suspend fun insertNewTask(task : Task){
         databaseDao.insertNewTask(task)
+    }
+
+    suspend fun getTasksCount(categoryName: String) : Int{
+        return databaseDao.getTasksCount(categoryName)
+    }
+
+    fun checkIfCategoryExist(newCategoryName: String): Int {
+        return databaseDao.checkIfCategoryExist(newCategoryName)
     }
 }

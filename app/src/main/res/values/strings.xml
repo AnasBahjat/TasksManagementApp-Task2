@@ -37,9 +37,9 @@
     <string name="choose_Text">Choose Color</string>
     <string name="choose_color_text">Choose Color</string>
     <string name="chosed_time">%s, %s</string>
-    <string name="error_date_title">Error Date</string>
+    <string name="error_date_title">No Date</string>
     <string name="error_date_message">Wrong date value , please choose a valid date</string>
-    <string name="error_time_title">Error Time</string>
+    <string name="error_time_title">No Time</string>
     <string name="error_time_message">Wrong time value , time should be in the future</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
@@ -47,5 +47,12 @@
     <string name="button_color_focused">#6E7070</string>
     <string name="exit_popup_window">exit popup window</string>
     <string name="add_task">Add Task</string>
+    <string name="ok_text">Ok</string>
+    <string name="error_priority_msg">Please choose a valid priority value of above</string>
+    <string name="error_priority_title">No Priority</string>
+    <string name="done_adding_task_title">Done</string>
+    <string name="done_adding_task_message">New task is added ..</string>
+    <string name="category_exist_title">Category Exists</string>
+    <string name="category_exist_message">Your Entered category name is already exists, please choose it or enter another category name</string>
 
 </resources>

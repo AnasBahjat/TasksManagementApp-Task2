@@ -44,15 +44,28 @@ class DatabaseViewModel(application : Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun deleteCategory(categoryId: Int){
+    fun deleteCategory(categoryName: String){
         viewModelScope.launch(Dispatchers.IO){
-            repo.deleteCategory(categoryId)
+            repo.deleteCategory(categoryName)
         }
     }
 
     fun deleteTask(taskId : Int){
         viewModelScope.launch(Dispatchers.IO){
             repo.deleteTask(taskId)
+        }
+    }
+
+
+    fun getTasksCount(categoryName: String , callback : (Int) -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            callback(repo.getTasksCount(categoryName))
+        }
+    }
+
+    fun checkIfCategoryExist(newCategoryName: String, callback: (Int) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            callback(repo.checkIfCategoryExist(newCategoryName))
         }
     }
 }

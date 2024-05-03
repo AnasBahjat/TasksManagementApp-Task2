@@ -10,5 +10,5 @@ data class Task(@PrimaryKey(autoGenerate = true) val taskId : Int,
     @ColumnInfo val taskDue : String,
     @ColumnInfo val taskChecked : Boolean,
     @ColumnInfo val categoryColor : String,
-    @ColumnInfo val priority : Int,
+    @ColumnInfo val priority : String,
     @ColumnInfo val categoryName: String)

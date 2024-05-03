@@ -22,7 +22,7 @@ abstract class DatabaseHandler : RoomDatabase(){
             synchronized(this){
                 val instance = Room.databaseBuilder(context.applicationContext,
                     DatabaseHandler::class.java,
-                    "task1DB").build()
+                    "task2DB").allowMainThreadQueries().build()
                 databaseInstance = instance
                 return instance
             }

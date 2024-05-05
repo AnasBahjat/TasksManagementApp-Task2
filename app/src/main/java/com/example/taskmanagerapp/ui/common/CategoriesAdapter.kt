@@ -43,9 +43,8 @@ class CategoriesAdapter(private val categories : List<Category>,private val cont
                      binding.tasksCount.text = context.getString(R.string.tasks_count_text,count.toString())
         }
     }
-
         private fun changeButtonBorderColor(color: String) {
-            binding.categoryColor.background = ColorDrawable(Color.parseColor(color))
+            binding.categoryColor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
         }
     }
 

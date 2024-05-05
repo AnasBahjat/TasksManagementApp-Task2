@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskmanagerapp.repositories.MyDatabaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DatabaseViewModel(application : Application) : AndroidViewModel(application){
     private lateinit var allCategories : LiveData<List<Category>>
@@ -59,7 +60,10 @@ class DatabaseViewModel(application : Application) : AndroidViewModel(applicatio
 
     fun getTasksCount(categoryName: String , callback : (Int) -> Unit){
         viewModelScope.launch(Dispatchers.IO) {
-            callback(repo.getTasksCount(categoryName))
+            val count = repo.getTasksCount(categoryName)
+            withContext(Dispatchers.Main) {
+                callback(count)
+            }
         }
     }
 

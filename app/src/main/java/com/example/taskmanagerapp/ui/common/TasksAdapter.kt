@@ -1,6 +1,11 @@
 package com.example.taskmanagerapp.ui.common
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -28,11 +33,21 @@ class TasksAdapter(private val tasksList : List<Task>,private val context : Cont
         fun bind(task : Task){
             binding.taskName.text = task.taskName
             binding.taskDue.text=context.getString(R.string.dueString,task.taskDue)
-            when(task.priority){
-                "Low" -> binding.taskPriorityButton.text=context.getString(R.string.high)
-                "Medium"-> binding.taskPriorityButton.text=context.getString(R.string.medium)
-                "High" -> binding.taskPriorityButton.text=context.getString(R.string.low)
-            }
+            binding.taskPriorityButton.text = task.priority
+            val border = GradientDrawable()
+            border.setColor(Color.WHITE)
+            val cornerRadius = context.resources.getDimensionPixelSize(R.dimen.radius_value).toFloat()
+            border.cornerRadius = cornerRadius
+            Log.d("the color is ${task.categoryColor}","the color is ${task.categoryColor}")
+            border.setStroke(6,Color.parseColor(task.categoryColor))
+            binding.taskPriorityButton.background = border
+
+           if(task.categoryColor == "#FFFFFFFF"){
+               binding.checkBox.buttonTintList = ColorStateList.valueOf(Color.BLACK)
+           }
+            else {
+               binding.checkBox.buttonTintList = ColorStateList.valueOf(Color.parseColor(task.categoryColor))
+           }
         }
     }
 }

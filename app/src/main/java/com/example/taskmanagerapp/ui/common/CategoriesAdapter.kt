@@ -3,6 +3,7 @@ package com.example.taskmanagerapp.ui.common
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.taskmanagerapp.R
 import com.example.taskmanagerapp.databinding.CategoryCardViewBinding
 import com.example.taskmanagerapp.models.Category
 
-class CategoriesAdapter(private val categories : List<Category>,private val context : Context) :  RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>(){
+class CategoriesAdapter(private val categories : List<Category>,private val context : Context,private val viewModel: DatabaseViewModel) :  RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,13 +33,19 @@ class CategoriesAdapter(private val categories : List<Category>,private val cont
     }
     inner class MyViewHolder(private val binding : CategoryCardViewBinding) :RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category){
-            //binding.tasksCount.text = context.getString(R.string.tasks_count,category.tasksCount.toString())
             binding.categoryName.text=category.categoryName
+            Log.d("category color is ${category.categoryColor}","${category.categoryName} ---> category color is ${category.categoryColor}")
             changeButtonBorderColor(category.categoryColor)
+            viewModel.getTasksCount(category.categoryName) { count ->
+                 if(count == 0 || count == 1)
+                     binding.tasksCount.text = context.getString(R.string.tasks_count_text_odd,count.toString())
+                else
+                     binding.tasksCount.text = context.getString(R.string.tasks_count_text,count.toString())
         }
+    }
 
         private fun changeButtonBorderColor(color: String) {
-           binding.categoryColor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
+            binding.categoryColor.background = ColorDrawable(Color.parseColor(color))
         }
     }
 

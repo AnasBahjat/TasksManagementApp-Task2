@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.newTaskScreen.NewTaskActivity">
+
+    <ImageView
+        android:id="@+id/backImageBtn"
+        android:layout_width="29dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="353dp"
+        android:contentDescription="@string/back"
+        app:srcCompat="@drawable/back_arrow_icon" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="112dp"
+        android:gravity="center"
+        android:text="@string/create_task_text"
+        android:textSize="35sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="129dp"
+        app:errorEnabled="true"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:errorIconDrawable="@drawable/small_error_icon"
+        android:hint="@string/task_information_input">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:maxLength="20"
+            android:textSize="20sp"
+            android:autofillHints="ss"
+            tools:ignore="LabelFor"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/datePickerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="255dp"
+        android:background="@drawable/black_curvey_layout"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/datePickerImage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/choose_due"
+            app:srcCompat="@drawable/date_picker" />
+
+        <TextView
+            android:id="@+id/dueDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:text="@string/due_date"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/completedCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="308dp"
+        android:layout_marginEnd="262dp"
+        android:text="@string/completed"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="384dp"
+        android:layout_marginEnd="116dp"
+        android:background="@drawable/black_border"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="10dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/select_priority"
+            app:srcCompat="@drawable/exclamation_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="@string/priority_Text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/priorityLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="438dp"
+        android:layout_marginEnd="52dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/lowPriorityBtn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.5"
+            android:text="@string/low_text"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <!-- android:background="@drawable/rounded_corners"-->
+
+
+        <Button
+            android:id="@+id/midPriorityBtn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+
+            android:text="@string/medium_text"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/highPriorityBtn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.5"
+            android:text="@string/high_text"
+
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="503dp"
+        android:layout_marginEnd="119dp"
+        android:background="@drawable/black_border"
+        android:gravity="center|center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="18dp"
+            android:layout_height="27dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/priority"
+            app:srcCompat="@drawable/categories_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="@string/category"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="326dp"
+        android:layout_above="@+id/saveTaskBtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="547dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="14dp">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
+            app:columnCount="3"
+            app:useDefaultMargins="true">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addNewCategoryBtn"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/curvey_button"
+                    android:backgroundTint="#D4D5D5"
+                    android:paddingStart="10dp"
+                    android:text="@string/add_new_category_text"
+                    android:textAllCaps="false"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="14dp"
+                    android:contentDescription="@string/add_category"
+                    android:elevation="7dp"
+                    app:srcCompat="@drawable/add_task_icon" />
+
+
+            </FrameLayout>
+
+        </TableLayout>
+
+    </ScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveTaskBtn"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/ovel_button"
+        android:clickable="true"
+        android:contentDescription="@string/add_task"
+        android:onClick="addNewTaskButtonClicked"
+        android:text="Add Task"
+        android:textAllCaps="false"
+        android:textColorLink="#D82525"
+        android:textSize="16sp"
+        app:srcCompat="@drawable/add_task_icon" />
+
+
+</RelativeLayout>

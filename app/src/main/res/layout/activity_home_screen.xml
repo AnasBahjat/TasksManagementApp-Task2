@@ -17,43 +17,60 @@ tools:context=".ui.homeScreen.HomeScreenActivity">
     android:layout_marginEnd="10dp"
     android:scrollbars="none" />
 
-<TextView
-    android:id="@+id/textView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_marginStart="30dp"
-    android:layout_marginTop="45dp"
-    android:text="@string/categories_text"
-    android:textAllCaps="true"
-    android:textColor="#676565"
-    android:textSize="30sp" />
+    <TextView
+        android:id="@+id/noCategoriesText"
+        android:layout_width="276dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="90dp"
+        android:text="No Categories Added"
+        android:textColor="#AAA7A7"
+        android:textSize="25sp"
+        android:visibility="gone" />
 
-<TextView
-    android:id="@+id/textView2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/categoriesRecyclerView"
-    android:layout_marginStart="30dp"
-    android:layout_marginTop="10dp"
-    android:text="@string/tasks_to_do_text"
-    android:textAllCaps="true"
-    android:textColor="#676565"
-    android:textSize="30sp" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/categories_text"
+        android:textAllCaps="true"
+        android:textColor="#676565"
+        android:textSize="30sp" />
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/tasksRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/addNewTaskBtn"
-    android:layout_below="@+id/categoriesRecyclerView"
-    android:layout_alignParentEnd="true"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="70dp"
-    android:layout_marginEnd="9dp"
-    android:layout_marginBottom="10dp"
-    android:scrollbarSize="2dp"
-    android:scrollbars="vertical" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="297dp"
+        android:text="@string/tasks_to_do_text"
+        android:textAllCaps="true"
+        android:textColor="#676565"
+        android:textSize="30sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tasksRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addNewTaskBtn"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="366dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="12dp"
+        android:scrollbarSize="2dp"
+        android:scrollbars="vertical" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addNewTaskBtn"
@@ -69,6 +86,20 @@ tools:context=".ui.homeScreen.HomeScreenActivity">
         app:cornerRadius="40dp"
         app:icon="@drawable/add_task_icon" />
 
+    <TextView
+        android:id="@+id/noTasksText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="137dp"
+        android:text="No Tasks Added"
+        android:textColor="#AAA7A7"
+        android:textSize="25sp"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

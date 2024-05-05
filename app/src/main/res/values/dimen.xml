@@ -2,4 +2,5 @@
 <resources>
     <dimen name="spaces">5dp</dimen>
     <dimen name="spacesTasks">1dp</dimen>
+    <dimen name="radius_value">15dp</dimen>
 </resources>

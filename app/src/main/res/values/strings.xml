@@ -54,5 +54,8 @@
     <string name="done_adding_task_message">New task is added ..</string>
     <string name="category_exist_title">Category Exists</string>
     <string name="category_exist_message">Your Entered category name is already exists, please choose it or enter another category name</string>
-
+    <string name="tasks_count_text">%s Tasks</string>
+    <string name="tasks_count_text_odd">%s Task</string>
+    <string name="channel_name">TaskManagerApp</string>
+    <string name="cahnnel_description">This is the task manager app channel</string>
 </resources>

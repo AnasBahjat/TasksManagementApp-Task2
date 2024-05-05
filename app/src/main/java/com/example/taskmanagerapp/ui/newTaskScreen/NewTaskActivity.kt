@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.PopupWindow
+import android.widget.TableRow
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.example.taskmanagerapp.R
 import com.example.taskmanagerapp.databinding.ActivityNewTaskBinding
 import com.example.taskmanagerapp.databinding.ColorPickerLayoutBinding
 import com.example.taskmanagerapp.databinding.PopupNewCategoryWindowLayoutBinding
+import com.example.taskmanagerapp.databinding.TestBinding
 import com.example.taskmanagerapp.databinding.TimePickerLayoutBinding
 import com.example.taskmanagerapp.models.Category
 import com.example.taskmanagerapp.models.Task
@@ -43,7 +45,7 @@ class NewTaskActivity : AppCompatActivity() {
     private lateinit var popUpWindowNewCategory: PopupWindow
     private lateinit var popupWindowTimePickerBinding : TimePickerLayoutBinding
     private var newCategoryName : String = ""
-    private var newCategoryColor : String = "#00000000"
+    private var newCategoryColor : String = "#FFFFFFFF"
     private lateinit var viewModel : DatabaseViewModel
     private val calendar = Calendar.getInstance()
     private var selectedColor : Int = 0
@@ -54,7 +56,7 @@ class NewTaskActivity : AppCompatActivity() {
     private var savedTime = ""
     private var selectedHour = 0
     private var amPm = ""
-    private lateinit var categoriesGridLayout : GridLayout
+    private var formattedDate  = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -103,7 +105,6 @@ class NewTaskActivity : AppCompatActivity() {
                 button.isAllCaps = false
                 setCurvyButton(button)
                 button.text = categories[i].categoryName
-                setCurvyButton(button)
                 binding.gridLayout.addView(button)
             }
         })
@@ -158,7 +159,7 @@ class NewTaskActivity : AppCompatActivity() {
                 Task(
                     0,
                     binding.taskInformation.editText?.text.toString(),
-                    savedTime,
+                    binding.dueDateText.text.toString(),
                     binding.completedCheckBox.isChecked,
                     newCategoryColor,
                     priority,
@@ -245,6 +246,10 @@ class NewTaskActivity : AppCompatActivity() {
             showColorPicker()
         }
 
+        popupNewCategoryWindowBinding.newCategoryColor.setOnClickListener {
+            showColorPicker()
+        }
+
         popupNewCategoryWindowBinding.closeNewCategoryPopupWindow.setOnClickListener {
             popUpWindowNewCategory.dismiss()
         }
@@ -281,7 +286,7 @@ class NewTaskActivity : AppCompatActivity() {
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year,monthOfYear,day)
                 val dateFormat = SimpleDateFormat(Constants.DATE_FORAMT,Locale.ENGLISH)
-                val formattedDate = dateFormat.format(selectedDate.time)
+                formattedDate = dateFormat.format(selectedDate.time)
                 binding.dueDateText.text=formattedDate
                 if(checkIfDateIsValid(year,monthOfYear,day) == 1){
                     binding.datePickerBtn.background=ContextCompat.getDrawable(this,R.drawable.black_curvey_layout)
@@ -303,9 +308,7 @@ class NewTaskActivity : AppCompatActivity() {
     }
 
     private fun checkIfDateIsValid(year : Int ,month : Int , dayOfMonth : Int) : Int{
-        Log.d("Month selected ----> $month ,, current month ----> ${LocalDate.now().monthValue}","Month selected ----> $month ,, current month ----> ${LocalDate.now().monthValue}")
         var flag = -1
-
         if(year == LocalDate.now().year && month + 1 == (LocalDate.now().monthValue) && dayOfMonth == LocalDate.now().dayOfMonth){
             return 0
         }
@@ -343,7 +346,6 @@ class NewTaskActivity : AppCompatActivity() {
         popupWindowTimePicker.isOutsideTouchable=false
         popupWindowTimePicker.showAtLocation(popupWindowTimePickerBinding.mainLayoutTimePicker,Gravity.CENTER,0,0)
         val currentTime = Calendar.getInstance()
-
         val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
         val currentMinute = currentTime.get(Calendar.MINUTE)
 
@@ -372,7 +374,7 @@ class NewTaskActivity : AppCompatActivity() {
 
 
             if(flag==0){
-                if(selectedTime.timeInMillis < currentTime.timeInMillis){
+                if(selectedTime.timeInMillis <= currentTime.timeInMillis){
                     showMessageDialog(getString(R.string.error_time_title),getString(R.string.error_time_message),R.drawable.error_icon_2)
                 }
             }
@@ -399,7 +401,7 @@ class NewTaskActivity : AppCompatActivity() {
         }
 
         popupWindowTimePickerBinding.selectTimeOkBtn.setOnClickListener{
-            binding.dueDateText.text=this.getString(R.string.chosed_time,binding.dueDateText.text,savedTime)
+            binding.dueDateText.text=this.getString(R.string.chosed_time,formattedDate,savedTime)
             popupWindowTimePicker.dismiss()
         }
     }
@@ -416,6 +418,7 @@ class NewTaskActivity : AppCompatActivity() {
             }
             .show()
     }
+
 
 
 
@@ -453,19 +456,11 @@ class NewTaskActivity : AppCompatActivity() {
        }
    }
 
-    private fun setCurvyButton(button: Button){
+
+   private fun setCurvyButton(button: Button){
         val drawable = GradientDrawable()
         drawable.cornerRadius=50f
         drawable.setColor(ContextCompat.getColor(this,R.color.button_normal))
         button.background=drawable
-    }
-    private fun setCategoriesGravity(){
-        for(i in binding.gridLayout.childCount - 1 downTo 1){
-            val child = binding.gridLayout.getChildAt(i)
-            val childParams = child.layoutParams as GridLayout.LayoutParams
-            childParams.width = GridLayout.LayoutParams.WRAP_CONTENT
-            childParams.height = GridLayout.LayoutParams.WRAP_CONTENT
-            child.layoutParams = childParams
-        }
     }
 }

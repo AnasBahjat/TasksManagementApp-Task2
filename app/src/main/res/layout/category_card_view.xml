@@ -33,7 +33,6 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="110dp"
         android:background="@drawable/category_button_color_preview"
-        android:backgroundTint="#3D067C"
         android:orientation="horizontal" />
 
 

@@ -69,7 +69,11 @@ class DatabaseViewModel(application : Application) : AndroidViewModel(applicatio
 
     fun checkIfCategoryExist(newCategoryName: String, callback: (Int) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            callback(repo.checkIfCategoryExist(newCategoryName))
+            val res = repo.checkIfCategoryExist(newCategoryName)
+            withContext(Dispatchers.Main){
+                callback(res)
+            }
+
         }
     }
 }
